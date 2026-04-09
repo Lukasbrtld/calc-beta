@@ -62,6 +62,38 @@ $.fn.dataTableExt.oSort['damage48-desc'] = function (a, b) {
 	return parseInt(b) - parseInt(a);
 };
 
+// Sauvegarde d'une équipe
+function saveTeam(name, team) {
+  localStorage.setItem(name, JSON.stringify(team));
+  alert(`Équipe "${name}" sauvegardée !`);
+}
+
+// Charger une équipe
+function loadTeam(name) {
+  const team = JSON.parse(localStorage.getItem(name) || 'null');
+  if (!team) alert(`Aucune équipe trouvée avec le nom "${name}"`);
+  return team;
+}
+
+// Exporter une équipe (copie JSON dans le presse-papier)
+function exportTeam(team) {
+  const json = JSON.stringify(team, null, 2);
+  navigator.clipboard.writeText(json);
+  alert("Équipe copiée dans le presse-papier !");
+}
+
+// Importer une équipe (colle le JSON via prompt)
+function importTeam() {
+  const json = prompt("Collez le JSON de l'équipe ici :");
+  if (!json) return null;
+  try {
+    return JSON.parse(json);
+  } catch (e) {
+    alert("JSON invalide !");
+    return null;
+  }
+}
+
 function performCalculations() {
 	var attacker, defender, setName, setTier;
 	var selectedTiers = getSelectedTiers();
