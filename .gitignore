@@ -9,3 +9,5 @@ Thumbs.db
 pnpm-debug.log
 npm-debug.log
 .vs/
+src/js/config.js
+src/js/config.js

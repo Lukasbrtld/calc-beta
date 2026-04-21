@@ -690,6 +690,27 @@
         </fieldset>
     </div>
 
+    <div class="panel" id="left-panel">
+        <fieldset class="poke-info">
+            <legend align="center">Team/Box</legend>
+            <div id="box-container"></div>
+            <div id="trash-section">
+                <strong>Trash</strong>
+                <div id="trash-box" class="box-content"></div>
+            </div>
+            <div style="margin-top:8px">
+                <button id="btn-add-box">+ New Box</button>
+                <button id="btn-empty-trash">Empty Trash</button>
+                <button id="btn-empty-all">Empty All Boxes</button>
+            </div>
+            <div style="margin-top:8px">
+                <textarea id="import-set-input" rows="8" style="width:100%;font-size:11px" placeholder="Paste a Showdown set here..."></textarea>
+                <select id="import-target-box"></select>
+                <button id="btn-import-set">Import</button>
+            </div>
+        </fieldset>
+    </div>
+
     <div class="panel">
         <div aria-label="Field information" role="region">
             <fieldset class="field-info">
@@ -1621,6 +1642,19 @@
             </div>
         </fieldset>
     </div>
+    <div class="panel" id="right-panel">
+        <fieldset class="poke-info">
+            <legend align="center">Opposing Team</legend>
+            <div id="trainer-name" style="text-align:center;font-weight:bold;margin-bottom:6px">—</div>
+            <div id="trainer-sprites" style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center;min-height:40px"></div>
+            <div style="margin-top:8px;text-align:center">
+                <button id="btn-prev-trainer">Previous Trainer</button>
+                <button id="btn-next-trainer">Next Trainer</button>
+                <button id="btn-reset-trainer">Reset</button>
+            </div>
+        </fieldset>
+    </div>
+
     <script type="text/javascript" src="./js/vendor/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="./js/vendor/select2/select2.min.js"></script>
     <script type="text/javascript" src="./js/vendor/url-search-params-0.1.2.min.js"></script>
@@ -1664,6 +1698,8 @@
     <script type="text/javascript" src="./calc/result.js?"></script>
     <script type="text/javascript" src="./calc/adaptable.js?"></script>
     <script type="text/javascript" src="./calc/index.js?"></script>
+    <script type="text/javascript" src="./js/config.js?"></script>
+    <script type="text/javascript" src="./js/gist-storage.js?"></script>
     <script type="text/javascript" src="./js/shared_controls.js?"></script>
     <script type="text/javascript" src="./js/index_randoms_controls.js?"></script>
     <script type="text/javascript" src="./js/moveset_import.js?"></script>
