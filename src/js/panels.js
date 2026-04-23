@@ -65,16 +65,33 @@ function buildRawFromDex(species, setName, dexObj) {
 
 function monToShowdown(mon) {
   const lines = [];
-  lines.push(mon.species + (mon.item ? ` @ ${mon.item}` : ''));
+  
+  // Première ligne : espèce (genre) @ objet
+  let firstLine = mon.species;
+  if (mon.gender && mon.gender !== 'N') firstLine += ` (${mon.gender})`;
+  if (mon.item) firstLine += ` @ ${mon.item}`;
+  lines.push(firstLine);
+
   if (mon.ability) lines.push(`Ability: ${mon.ability}`);
   if (mon.level && mon.level !== 100) lines.push(`Level: ${mon.level}`);
   if (mon.nature) lines.push(`${mon.nature} Nature`);
+
+  // EVs seulement si non nuls
   if (mon.evs) {
     const evParts = Object.entries(mon.evs)
       .filter(([, v]) => v > 0)
       .map(([k, v]) => `${v} ${k.toUpperCase()}`);
     if (evParts.length) lines.push(`EVs: ${evParts.join(' / ')}`);
   }
+
+  // IVs seulement si différents de 31
+  if (mon.ivs) {
+    const ivParts = Object.entries(mon.ivs)
+      .filter(([, v]) => v !== 31)
+      .map(([k, v]) => `${v} ${k.toUpperCase()}`);
+    if (ivParts.length) lines.push(`IVs: ${ivParts.join(' / ')}`);
+  }
+
   (mon.moves || []).filter(Boolean).forEach(m => lines.push(`- ${m}`));
   return lines.join('\n');
 }
