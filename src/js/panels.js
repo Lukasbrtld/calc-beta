@@ -287,7 +287,7 @@ function renderRightPanel() {
   (trainer.team || []).forEach(mon => {
     const set = {
       species: mon.species,
-      name: mon.species,
+      name: trainer.name,
       raw: monToShowdown(mon),
     };
     spritesEl.appendChild(spriteEl(set, s => loadIntoSlot(s, 'p2')));
