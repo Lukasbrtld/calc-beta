@@ -303,9 +303,18 @@ function interceptImportButton() {
     clearInterval(waitForBtn);
 
     btn.addEventListener('click', () => {
+      // Snapshot AVANT l'import
+      const beforeStr = localStorage.customsets || '{}';
+
       setTimeout(async () => {
+        const before = JSON.parse(beforeStr);
         const customsets = localStorage.customsets
           ? JSON.parse(localStorage.customsets) : {};
+
+        // Noms des dresseurs à exclure
+        const trainerNames = new Set(
+          (_storage.getTrainers() || []).map(t => t.name)
+        );
 
         const d = _storage.getSets();
         const targetBox = d.boxes.find(b => b.id === 'box-1') || d.boxes[1];
@@ -313,8 +322,11 @@ function interceptImportButton() {
 
         for (const species in customsets) {
           for (const setName in customsets[species]) {
+            // Ignore les sets des dresseurs
+            if (trainerNames.has(setName)) continue;
+
             const dexObj = customsets[species][setName];
-            if (!dexObj.moves) continue; // ignore les entrées incomplètes
+            if (!dexObj.moves) continue;
 
             const raw = buildRawFromDex(species, setName, dexObj);
             const newSet = {
@@ -324,7 +336,6 @@ function interceptImportButton() {
               raw: raw,
             };
 
-            // Cherche dans toutes les boxes et la poubelle
             let found = false;
             for (const box of d.boxes) {
               const idx = (box.sets || []).findIndex(s => s?.species === species && s?.name === setName);
@@ -387,6 +398,7 @@ async function initPanels() {
   renderLeftPanel();
   renderRightPanel();
   interceptImportButton();
+  interceptP2Selector();
 
   // Boutons
   document.getElementById('btn-add-box')?.addEventListener('click', async () => {
