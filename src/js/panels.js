@@ -366,6 +366,25 @@ function interceptImportButton() {
   }, 200);
 }
 
+function interceptP2Selector() {
+  const selector = $('#p2 .set-selector').filter('input');
+  selector.on('change', () => {
+    const val = selector.val();
+    if (!val) return;
+
+    const match = val.match(/\(([^)]+)\)$/);
+    if (!match) return;
+    const setName = match[1];
+
+    const trainers = _storage.getTrainers();
+    const idx = trainers.findIndex(t => t.name === setName);
+    if (idx >= 0) {
+      currentTrainerIndex = idx;
+      renderRightPanel();
+    }
+  });
+}
+
 // ── Initialisation ────────────────────────────────────────────
 
 async function initPanels() {
