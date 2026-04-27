@@ -22,7 +22,7 @@ function makeCachebuster(template, output) {
 		let hash = Math.random(); // just in case creating the hash fails
 		try {
 			const filename = c.replace('//play.pokemonshowdown.com/', '../../play.pokemonshowdown.com/');
-			const fstr = fs.readFileSync(path.resolve(rootDir, 'dist', filename), 'utf8');
+			const fstr = fs.readFileSync(path.resolve(rootDir, 'docs', filename), 'utf8');
 			hash = crypto.createHash('md5').update(fstr).digest('hex').substr(0, 8);
 		} catch (e) {}
 
@@ -65,9 +65,9 @@ if (process.argv[2] !== 'view') {
 	require('child_process').execSync('npm --prefix calc/ run compile', {stdio: 'inherit'});
 }
 
-cpdir('src', 'dist');
-cpdir('calc/dist', 'dist/calc');
-makeCachebuster('src/honkalculate.html', 'dist/honkalculate.html');
-makeCachebuster('src/index.html', 'dist/index.html');
-makeCachebuster('src/randoms.html', 'dist/randoms.html');
-makeCachebuster('src/oms.html', 'dist/oms.html');
+cpdir('src', 'docs');
+cpdir('calc/docs', 'docs/calc');
+makeCachebuster('src/honkalculate.html', 'docs/honkalculate.html');
+makeCachebuster('src/index.html', 'docs/index.html');
+makeCachebuster('src/randoms.html', 'docs/randoms.html');
+makeCachebuster('src/oms.html', 'docs/oms.html');
