@@ -1,3 +1,18 @@
+// Initialise la config depuis l'URL ou le localStorage
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get('token');
+  const sets = params.get('sets');
+  const trainers = params.get('trainers');
+
+  if (token && sets && trainers) {
+    localStorage.setItem('calc_token', token);
+    localStorage.setItem('calc_sets_gist', sets);
+    localStorage.setItem('calc_trainers_gist', trainers);
+    window.history.replaceState({}, '', window.location.pathname);
+  }
+})();
+
 const GIST_API = 'https://api.github.com/gists';
 
 class GistStorage {
