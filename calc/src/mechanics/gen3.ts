@@ -423,7 +423,7 @@ function calculateFinalModsADV(
 
   baseDamage = (move.category === 'Physical' ? Math.max(1, baseDamage) : baseDamage) + 2;
   if (isCritical) {
-    baseDamage *= 2;
+    baseDamage = Math.floor(baseDamage * 1.5);
     desc.isCritical = true;
   }
 

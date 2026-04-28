@@ -350,7 +350,7 @@ function calculateFinalModsADV(baseDamage, attacker, move, field, desc, isCritic
     }
     baseDamage = (move.category === 'Physical' ? Math.max(1, baseDamage) : baseDamage) + 2;
     if (isCritical) {
-        baseDamage *= 2;
+        baseDamage = Math.floor(baseDamage * 1.5);
         desc.isCritical = true;
     }
     if (move.named('Pursuit') && field.defenderSide.isSwitching === 'out') {
