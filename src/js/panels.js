@@ -59,11 +59,17 @@ function buildRawFromDex(species, setName, dexObj) {
     if (evParts.length) lines.push(`EVs: ${evParts.join(' / ')}`);
   }
   if (dexObj.ivs) {
-    const ivParts = Object.entries(dexObj.ivs)
-      .filter(([, v]) => v !== 31)
-      .map(([k, v]) => `${v} ${k.toUpperCase()}`);
-    if (ivParts.length) lines.push(`IVs: ${ivParts.join(' / ')}`);
-  }
+  const legacyToDisplay = {
+    'hp': 'HP', 'at': 'Atk', 'df': 'Def',
+    'sa': 'SpA', 'sd': 'SpD', 'sp': 'Spe',
+    // format standard aussi au cas où
+    'atk': 'Atk', 'def': 'Def', 'spa': 'SpA', 'spd': 'SpD', 'spe': 'Spe'
+  };
+  const ivParts = Object.entries(dexObj.ivs)
+    .filter(([k, v]) => v !== undefined && v !== 31 && legacyToDisplay[k])
+    .map(([k, v]) => `${v} ${legacyToDisplay[k]}`);
+  if (ivParts.length) lines.push(`IVs: ${ivParts.join(' / ')}`);
+}
   (dexObj.moves || []).filter(m => m && m.name !== '(No Move)')
     .forEach(m => lines.push(`- ${m.name || m}`));
   return lines.join('\n');
