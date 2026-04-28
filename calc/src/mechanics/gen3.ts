@@ -152,7 +152,7 @@ export function calculateADV(
 
   const isCritical = move.isCrit && !defender.hasAbility('Battle Armor', 'Shell Armor');
   const at = calculateAttackADV(gen, attacker, defender, move, desc, isCritical);
- const df = calculateDefenseADV(gen, defender, move, desc, isCritical);
+  const df = calculateDefenseADV(gen, defender, move, desc, isCritical);
   const lv = attacker.level;
   let baseDamage = Math.floor(Math.floor((Math.floor((2 * lv) / 5 + 2) * at * bp) / df) / 50);
   baseDamage = calculateFinalModsADV(baseDamage, attacker, move, field, desc, isCritical);
