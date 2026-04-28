@@ -143,7 +143,10 @@ function calculateADV(gen, attacker, defender, move, field) {
     baseDamage = Math.floor(baseDamage * type2Effectiveness);
     var damage = [];
     for (var i = 85; i <= 100; i++) {
-        damage[i - 85] = Math.max(1, Math.floor((baseDamage * i) / 100));
+        var dmg = Math.max(1, Math.floor((baseDamage * i) / 100));
+        if (isCritical)
+            dmg = Math.floor(dmg * 1.5);
+        damage[i - 85] = dmg;
     }
     result.damage = damage;
     if (move.timesUsed > 1 || move.hits > 1) {
@@ -350,7 +353,6 @@ function calculateFinalModsADV(baseDamage, attacker, move, field, desc, isCritic
     }
     baseDamage = (move.category === 'Physical' ? Math.max(1, baseDamage) : baseDamage) + 2;
     if (isCritical) {
-        baseDamage = Math.floor(baseDamage * 1.5);
         desc.isCritical = true;
     }
     if (move.named('Pursuit') && field.defenderSide.isSwitching === 'out') {
