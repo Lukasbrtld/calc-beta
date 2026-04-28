@@ -58,6 +58,12 @@ function buildRawFromDex(species, setName, dexObj) {
       .map(([k, v]) => `${v} ${k.toUpperCase()}`);
     if (evParts.length) lines.push(`EVs: ${evParts.join(' / ')}`);
   }
+  if (dexObj.ivs) {
+    const ivParts = Object.entries(dexObj.ivs)
+      .filter(([, v]) => v !== 31)
+      .map(([k, v]) => `${v} ${k.toUpperCase()}`);
+    if (ivParts.length) lines.push(`IVs: ${ivParts.join(' / ')}`);
+  }
   (dexObj.moves || []).filter(m => m && m.name !== '(No Move)')
     .forEach(m => lines.push(`- ${m.name || m}`));
   return lines.join('\n');
